@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         unfaird IPA Decrypt Service — 简体中文 i18n
-// @namespace    https://github.com/local/unfaird-zh
-// @version      1.1.0
+// @namespace    https://github.com/luestr/userscripts
+// @version      1.1.1
 // @description  将 decrypt.34306.lol 界面翻译为简体中文，并将 App Store 区域默认选为「中国」
-// @author       i18n
+// @author       可莉
+// @homepageURL  https://t.me/ibilibili
+// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
+// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
 // @match        https://decrypt.34306.lol/*
 // @match        http://decrypt.34306.lol/*
 // @run-at       document-start
