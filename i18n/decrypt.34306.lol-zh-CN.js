@@ -8,7 +8,6 @@
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
 // @match        https://decrypt.34306.lol/*
-// @match        http://decrypt.34306.lol/*
 // @run-at       document-start
 // @grant        none
 // @noframes
