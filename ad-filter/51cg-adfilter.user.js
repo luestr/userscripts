@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         51吃瓜广告过滤器
+// @name         51吃瓜网广告过滤器
 // @name:en      51cg Ad Filter
 // @namespace    https://github.com/luestr/userscripts
-// @version      2.2.0
-// @description  过滤 51cg1.com 广告：优先请求拦截（页面上下文 XHR/fetch/Image 钩子 + Tampermonkey @webRequest），其次页面清理。首页：浮标 / 底部横幅 / 弹窗 / 底部悬浮按钮“51吃瓜APP内打开” / 悬浮公告条 / “没有文章标题”的列表广告卡；详情页：顶部文字广告、正文“51吃瓜最新地址/关键词/热门吃瓜”，下载/分享按钮、热门应用/最新上架/必备精品/猜你喜欢、版权段、关键词标签、重磅热瓜、官方公告地址盒、页脚。
+// @version      2.2.1
+// @description  过滤 51cg1.com 广告：优先请求拦截，其次页面清理。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg-adfilter.user.js
@@ -13,9 +13,6 @@
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_addStyle
-// @grant        GM_getValue
-// @grant        GM_setValue
-// @grant        GM_registerMenuCommand
 // @noframes
 // @webRequest   [{"selector":"*://pic.wvxrrip.cn/hc237/*","action":"cancel"},{"selector":"*://*.zyudkkup.com/*","action":"cancel"},{"selector":"*://mc.yandex.ru/*","action":"cancel"},{"selector":"*://*.googletagmanager.com/*","action":"cancel"},{"selector":"*://*.google-analytics.com/*","action":"cancel"},{"selector":"*://analytics.google.com/*","action":"cancel"},{"selector":"*://*.doubleclick.net/*","action":"cancel"},{"selector":"*://*.googlesyndication.com/*","action":"cancel"}]
 // ==/UserScript==
@@ -47,7 +44,7 @@
      *   - 广告上报: ads.zyudkkup.com/api/eventTracking/report.json (tjtag)
      * ========================================================================= */
 
-    // ---- 用户可调开关 -------------------------------------------------------
+    // ---- 内部开关（无 UI，如需调整请直接改此常量） --------------------------
     const CONFIG = {
         blockCreatives: true,   // 拦截广告素材图 pic.wvxrrip.cn/hc237/
         blockTrackers: true,    // 拦截第三方统计/追踪 (zyudkkup / yandex / gtm / ga / doubleclick)
@@ -253,7 +250,7 @@
         } catch (e) { /* ignore */ }
     }
 
-    // 安装：unsafeWindow 直连 + 页面内 <script> 注入（双保险，去重由 __cgAdFilterHooked 保证）
+    // 安装：unsafeWindow 桥直装 + 页面内 <script> 注入（双保险，去重由 __cgAdFilterHooked 保证）
     const U = (typeof unsafeWindow !== 'undefined' && unsafeWindow) ? unsafeWindow : window;
     try { installHooks(U, HOOK_CFG); } catch (e) { /* ignore */ }
     try {
@@ -502,34 +499,6 @@
             scheduleNoTitleCleanup();
             if (++ticks >= 30) clearInterval(timer);
         }, 400);
-    } catch (e) { /* ignore */ }
-
-    /* -------------------------------------------------------------------------
-     * 5. 菜单命令
-     * ---------------------------------------------------------------------- */
-    try {
-        if (typeof GM_getValue === 'function') {
-            CONFIG.blockCreatives = GM_getValue('blockCreatives', CONFIG.blockCreatives);
-            CONFIG.blockTrackers = GM_getValue('blockTrackers', CONFIG.blockTrackers);
-            CONFIG.removeNoTitle = GM_getValue('removeNoTitle', CONFIG.removeNoTitle);
-        }
-        if (typeof GM_registerMenuCommand === 'function') {
-            GM_registerMenuCommand((CONFIG.removeNoTitle ? '✅ ' : '⬜ ') + '移除“无标题”列表广告卡（刷新生效）', function () {
-                CONFIG.removeNoTitle = !CONFIG.removeNoTitle;
-                try { GM_setValue('removeNoTitle', CONFIG.removeNoTitle); } catch (e) { }
-                location.reload();
-            });
-            GM_registerMenuCommand((CONFIG.blockCreatives ? '✅ ' : '⬜ ') + '拦截广告素材图（刷新生效）', function () {
-                CONFIG.blockCreatives = !CONFIG.blockCreatives;
-                try { GM_setValue('blockCreatives', CONFIG.blockCreatives); } catch (e) { }
-                location.reload();
-            });
-            GM_registerMenuCommand((CONFIG.blockTrackers ? '✅ ' : '⬜ ') + '拦截第三方统计/追踪（刷新生效）', function () {
-                CONFIG.blockTrackers = !CONFIG.blockTrackers;
-                try { GM_setValue('blockTrackers', CONFIG.blockTrackers); } catch (e) { }
-                location.reload();
-            });
-        }
     } catch (e) { /* ignore */ }
 
 })();
