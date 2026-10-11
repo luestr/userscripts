@@ -8,8 +8,7 @@
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
-// @match        *://51cg1.com/*
-// @match        *://*.51cg1.com/*
+// @match        https://hl365.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_addStyle
