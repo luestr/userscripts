@@ -2,13 +2,13 @@
 // @name         51 吃瓜网广告拦截
 // @name:en      51cg Ad Block
 // @namespace    https://github.com/luestr/userscripts
-// @version      2.2.1
+// @version      2.2.2
 // @description  过滤 51cg1.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
-// @match        https://hl365.com/*
+// @match        https://51cg1.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_addStyle
