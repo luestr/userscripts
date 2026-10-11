@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         51 吃瓜网广告拦截
+// @name         51 吃瓜网广告过滤
 // @name:en      51cg Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      2.2.2

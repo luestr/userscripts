@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         黑料网广告拦截
+// @name         黑料网广告过滤
 // @namespace    hl365 Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.4.5
-// @description  拦截 hl365.com 广告，仅适配 WebKit 引擎环境。
+// @description  过滤 hl365.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/hl365_adblock.user.js
