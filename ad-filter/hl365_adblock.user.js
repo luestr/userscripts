@@ -3,7 +3,7 @@
 // @namespace    hl365 Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.4.5
-// @description  对 hl365.com 优先拦截广告/追踪请求，其次清理页面广告元素。
+// @description  拦截 hl365.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/hl365_adblock.user.js
@@ -13,45 +13,6 @@
 // @grant        none
 // @webRequest   [{"selector":"*://mc.yandex.ru/*","action":"cancel"},{"selector":"*://*.googletagmanager.com/*","action":"cancel"},{"selector":"*://*.google-analytics.com/*","action":"cancel"},{"selector":"*://static.cloudflareinsights.com/*","action":"cancel"},{"selector":"*://*/api/eventTracking/batchReport.json*","action":"cancel"},{"selector":"*://api1.gxmufvxq.cc/api.php/api/home/config*","action":"cancel"},{"selector":"https://hl365.com/storage/static/popup-feed.json*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/bottom_ad_poll.js*","action":"cancel"},{"selector":"https://hl365.com/usr/plugins/activity/js/popup-lottery.js*","action":"cancel"},{"selector":"https://hl365.com/usr/plugins/activity/js/popup-zhongqiu.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/fp.min.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/tjtag.3.2.3.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/web-sdk-v1.1.3.js*","action":"cancel"}]
 // ==/UserScript==
-
-/*
- * 设计说明
- * ----------
- * 目标：https://hl365.com 首页广告过滤，优先级为
- *   1) 请求拦截（第一优先）：@webRequest 声明式取消（支持该指令的构建，
- *      在网络层拦截 script/xhr/websocket/sub_frame，含页面脚本加载前），
- *      加上 document-start 阶段对 fetch / XMLHttpRequest / sendBeacon 以及
- *      元素 src/href/srcset 的运行时拦截（可移植到 Manifest V3 等不支持
- *      @webRequest 的环境）。
- *   2) 页面清理（第二优先）：注入 CSS 隐藏 + MutationObserver 移除广告节点。
- *
- * 已确认的广告/追踪目标（侦察 https://hl365.com/ 得到）：
- *   - 追踪：mc.yandex.ru、googletagmanager.com、google-analytics.com、
- *     static.cloudflareinsights.com、任意主机 /api/eventTracking/batchReport.json。
- *   - 配置：api1.gxmufvxq.cc/api.php/api/home/config（活动弹窗开关）。
- *   - 底部弹窗广告：/storage/static/popup-feed.json + bottom_ad_poll.js。
- *   - 活动弹窗：/usr/plugins/activity/js/popup-lottery.js、popup-zhongqiu.js。
- *   - 指纹/埋点：/usr/themes/Mirages/js/7.10.0/{fp.min,tjtag.*,web-sdk-*}.js。
- *   - 广告素材图：pic.hdhwqx.cn/hc237/uploads/default/other/（已确认该目录
- *     下图片均来自 .ad-item / 广告弹窗，站点正文图使用 /upload_01/ 目录）。
- *   - 广告 DOM：article.ad-item、.adspop、.bottom-ads、
- *     #lottery-popup-wrap、#zq-activity-popup、#aiFloat（成人 AI 悬浮广告）、
- *     .launchapp-btn-container（App 下载提示）、#foot-menu 与 #footer（整块页脚）、
- *     .horizontal-banner（首页底部 banner 广告墙）。
- *   - 文章页推广（/archives/*.html 的 .post-content 内）：.article-ads-btn、
- *     .ads-title、.article-bottom-apps、.article-content-after、#button5、
- *     .post-near、.top_picks_title、.top_picks_wrapper、
- *     .content-copyright、.tags、.table-responsive，以及“最新地址/加群/分享动力/
- *     关键词/保存下图”等引流段落（正文段落、图片、视频与评论区一律保留）。
- *   - 播放器广告：DPlayer 前置广告由 player.js 注入，包含三部分——
- *     ①广告图外层 <div class="tjtagmanager" data-ad_type data-event="ad_click">（按 [data-ad_type] 处理）；
- *     ②右上角倒计时文案 <div class="ads_text">（“广告加载中…”/“… 后自动关闭”）；
- *     ③底部进度条 <div style="background: rgba(255, 255, 255, 0.4)">。
- *     ②③ 没有 data-ad_type，需按 .ads_text 与进度条样式单独移除/隐藏。
- *
- * 不作处理：仅保留 #age-verify-overlay（年龄验证，非广告）与
- *   .zq-activity-banner（活动入口导航，非弹窗）。
- */
 
 (() => {
   'use strict';

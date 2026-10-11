@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         51吃瓜网广告拦截
+// @name         51 吃瓜网广告拦截
 // @name:en      51cg Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      2.2.1
-// @description  过滤 51cg1.com 广告：优先请求拦截，其次页面清理。
+// @description  过滤 51cg1.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg_adblock.user.js
@@ -19,30 +19,6 @@
 
 (function () {
     'use strict';
-
-    /* =========================================================================
-     *  51cg1.com 广告过滤器
-     *
-     *  策略（按优先级）：
-     *   1) 请求拦截
-     *      a. Tampermonkey @webRequest 声明式取消（见脚本头，网络层拦截）
-     *      b. 页面上下文运行时钩子（XMLHttpRequest / fetch / Image.src /
-     *         Element.setAttribute / window.open）—— 覆盖本引擎等不支持 @webRequest 的场景
-     *         本站在 document-start 之后才解析广告脚本，故钩子必须尽早安装。
-     *   2) 页面清理（CSS 立即隐藏 + 节点移除 + MutationObserver 动态清理）
-     *   3) 广告点击中和（捕获阶段拦截 a.tjtagmanager / 站外落地域名）
-     *
-     *  经实测（2026-10-09）本站首页广告结构：
-     *   - 浮标   : #adFloat.xqbj-component-adfloat  (swiper, data-page_key="float_ads")
-     *   - 底部横幅: section.horizontal-block          (data-page_key="home_bottom")
-     *   - 列表广告: article.ad-item                   (data-page_key="post_list", #ad-card-N, .post-card-ads)
-     *   - 弹窗   : .recommend-layer                   (data-page_key="category", home_pop_ads)
-     *   - 无标题软文卡: #index article，其 h2.post-card-title 内只有“热搜 HOT”徽标、无标题文字
-     *   - 底部悬浮按钮: .addbox > a.download-box（文案“51吃瓜APP内打开”，落地 https://230.sqfnhloyh.cc）
-     *   - 悬浮公告条: .home-announce-bar（“同城约炮/性感尤物…”）
-     *   - 广告素材: 全部经 XHR 从 pic.wvxrrip.cn/hc237/ 拉取并解密（内容图走 /upload_01/、/upload/）
-     *   - 广告上报: ads.zyudkkup.com/api/eventTracking/report.json (tjtag)
-     * ========================================================================= */
 
     // ---- 内部开关（无 UI，如需调整请直接改此常量） --------------------------
     const CONFIG = {
