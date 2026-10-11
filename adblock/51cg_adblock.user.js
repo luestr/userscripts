@@ -6,8 +6,8 @@
 // @description  过滤 51cg1.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
-// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg_adblock.user.js
-// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg_adblock.user.js
+// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
+// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
 // @match        *://51cg1.com/*
 // @match        *://*.51cg1.com/*
 // @run-at       document-start

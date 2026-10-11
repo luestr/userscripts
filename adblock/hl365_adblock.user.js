@@ -6,8 +6,8 @@
 // @description  拦截 hl365.com 广告，仅适配 WebKit 引擎环境。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
-// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/hl365_adblock.user.js
-// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/hl365_adblock.user.js
+// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/hl365_adblock.user.js
+// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/hl365_adblock.user.js
 // @match        https://hl365.com/*
 // @run-at       document-start
 // @grant        none
