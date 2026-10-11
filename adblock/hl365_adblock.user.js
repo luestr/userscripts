@@ -1,14 +1,17 @@
 // ==UserScript==
 // @name         黑料网广告过滤
-// @namespace    hl365 Ad Block
+// @name:zh-CN   黑料网广告过滤
+// @name:en      HL365 Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.4.5
 // @description  过滤 hl365.com 广告，仅适配 WebKit 引擎环境。
+// @description:en Block advertisements on hl365.com. WebKit only.
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/hl365_adblock.user.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/hl365_adblock.user.js
 // @match        https://hl365.com/*
+// @match        https://www.hl365.com/*
 // @run-at       document-start
 // @grant        none
 // @webRequest   [{"selector":"*://mc.yandex.ru/*","action":"cancel"},{"selector":"*://*.googletagmanager.com/*","action":"cancel"},{"selector":"*://*.google-analytics.com/*","action":"cancel"},{"selector":"*://static.cloudflareinsights.com/*","action":"cancel"},{"selector":"*://*/api/eventTracking/batchReport.json*","action":"cancel"},{"selector":"*://api1.gxmufvxq.cc/api.php/api/home/config*","action":"cancel"},{"selector":"https://hl365.com/storage/static/popup-feed.json*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/bottom_ad_poll.js*","action":"cancel"},{"selector":"https://hl365.com/usr/plugins/activity/js/popup-lottery.js*","action":"cancel"},{"selector":"https://hl365.com/usr/plugins/activity/js/popup-zhongqiu.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/fp.min.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/tjtag.3.2.3.js*","action":"cancel"},{"selector":"https://hl365.com/usr/themes/Mirages/js/7.10.0/web-sdk-v1.1.3.js*","action":"cancel"}]

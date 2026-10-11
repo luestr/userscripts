@@ -1,8 +1,12 @@
 // ==UserScript==
-// @name         unfaird IPA Decrypt Service — 简体中文 i18n
+// @name         unfaird 简体中文翻译
+// @name:zh-CN   unfaird 简体中文翻译
+// @name:en      unfaird Simplified Chinese Translator
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.1.1
 // @description  将 decrypt.34306.lol 界面翻译为简体中文，并将 App Store 区域默认选为「中国」
+// @description:zh-CN 将 decrypt.34306.lol 界面翻译为简体中文，并将 App Store 区域默认选为「中国」
+// @description:en Translate the decrypt.34306.lol interface into Simplified Chinese and set the App Store region to China by default.
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js

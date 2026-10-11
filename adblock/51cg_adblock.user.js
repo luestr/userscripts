@@ -1,14 +1,18 @@
 // ==UserScript==
 // @name         51 吃瓜网广告过滤
-// @name:en      51cg Ad Block
+// @name:zh-CN   51 吃瓜网广告过滤
+// @name:en      51CG Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      2.2.2
 // @description  过滤 51cg1.com 广告，仅适配 WebKit 引擎环境。
+// @description:zh-CN 过滤 51cg1.com 广告，仅适配 WebKit 引擎环境。
+// @description:en Block advertisements on 51cg1.com. WebKit only.
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/51cg_adblock.user.js
 // @match        https://51cg1.com/*
+// @match        https://www.51cg1.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_addStyle
