@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         51吃瓜网广告过滤器
-// @name:en      51cg Ad Filter
+// @name         51吃瓜网广告拦截
+// @name:en      51cg Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      2.2.1
 // @description  过滤 51cg1.com 广告：优先请求拦截，其次页面清理。
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
-// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg-adfilter.user.js
-// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg-adfilter.user.js
+// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg_adblock.user.js
+// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/ad-filter/51cg_adblock.user.js
 // @match        *://51cg1.com/*
 // @match        *://*.51cg1.com/*
 // @run-at       document-start
