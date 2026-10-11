@@ -9,8 +9,8 @@
 // @description:en Translate the decrypt.34306.lol interface into Simplified Chinese and set the App Store region to China by default.
 // @author       可莉
 // @homepageURL  https://t.me/ibilibili
-// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
-// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.js
+// @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.user.js
+// @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/i18n/decrypt.34306.lol-zh-CN.user.js
 // @match        https://decrypt.34306.lol/*
 // @run-at       document-start
 // @grant        none
