@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         unfaird 简体中文翻译
-// @name:zh-CN   unfaird 简体中文翻译
+// @name         unfaird简体中文翻译
+// @name:zh-CN   unfaird简体中文翻译
 // @name:en      unfaird Simplified Chinese Translator
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.1.1
