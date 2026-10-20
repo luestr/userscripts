@@ -3,7 +3,7 @@
 // @name:zh-CN   每日大赛网广告过滤
 // @name:en      MRDS Ad Block
 // @namespace    https://github.com/luestr/userscripts
-// @version      1.0.0
+// @version      1.1.0
 // @description  过滤 mrds66.com 的横幅、弹窗、播放器与列表广告，仅适配 WebKit 引擎环境。
 // @description:en Block banner, popup, player and list ads on mrds66.com. WebKit only.
 // @author       可莉
@@ -266,30 +266,27 @@
   }
 
   /**
-   * 列表广告的核心特征是没有文章标题。
-   * 站点存在少量“无标题但属于正文”的卡片（如 post-card-193721），它们仍指向站内
-   * /archives/ 且遮罩类名为 .post-card-mask；广告卡则带 .post-card-ads 遮罩、
-   * 外链落地页或 ad-card-* 标识。因此只有同时满足“无标题 + 非站内文章链接”才移除，
-   * 并以遮罩/标识作为佐证，避免误删真实文章。
+   * 列表广告的核心特征是“没有文章标题”——站点把推广内容伪装成文章卡，
+   * 遮罩里只有空的 .post-card-info（部分还指向站内 /archives/ 的引流页，
+   * 如“回家的路”“最新网址”），因此只按标题判定，不给站内链接开例外。
+   * .ad-item / .post-card-ads / ad-card-* 作为额外佐证，即使误配标题也一并移除。
    */
   function isTitlelessAdCard(article) {
     if (article.classList.contains('ad-item')) return true;
-    if (article.querySelector('.post-card-ads')) return true;
 
     const card = article.querySelector('.post-card');
     if (!card) return false;
+
+    if (card.querySelector('.post-card-ads')) return true;
     if (AD_TARGET_ID.test(String(card.id || ''))) return true;
 
     const title = article.querySelector('.post-card-title');
-    if (title && title.textContent.trim()) return false;
-
-    const link = article.querySelector('a[href]');
-    const href = link ? link.getAttribute('href') || '' : '';
-    return !/^\/?archives\//i.test(href);
+    return !(title && title.textContent.trim());
   }
 
   function removeTitlelessCards(scope) {
-    scope.querySelectorAll('#index > article').forEach((article) => {
+    // 首页的列表容器是 #index，分类/搜索/标签页是 #archive，归档页两处都可能出现。
+    scope.querySelectorAll('#index > article, #archive > article').forEach((article) => {
       if (!isTitlelessAdCard(article)) return;
       log('remove titleless ad card');
       article.remove();
