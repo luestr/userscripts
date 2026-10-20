@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         555电影广告过滤
-// @name:zh-CN   555电影广告过滤
+// @name         555电影网广告过滤
+// @name:zh-CN   555电影网广告过滤
 // @name:en      555 Movie Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.2.0
