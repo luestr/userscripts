@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         555电影网广告过滤
-// @name:zh-CN   555电影网广告过滤
+// @name         555电影广告过滤
+// @name:zh-CN   555电影广告过滤
 // @name:en      555 Movie Ad Block
 // @namespace    https://github.com/luestr/userscripts
-// @version      1.1.2
+// @version      1.2.0
 // @description  过滤 555k06.com 首页与播放页广告，优先拦截请求、其次清理页面，仅适配 WebKit 引擎环境。
 // @description:en Block ads on 555k06.com home and play pages with request blocking first and DOM cleanup as fallback. WebKit only.
 // @author       可莉
@@ -31,6 +31,8 @@
 
   // 博彩/推广落地域名：图标墙、弹窗、悬浮按钮、播放页横幅都指向这些站点。
   const AD_HOST_RE = /(?:^|\.)(?:32841243\.com|10387723\.com|52629942\.com|bihe299\.com|24240575\.com|98516601\.com|91001719\.com|55kp2\.com|55kp30\.com|55dy23\.com|55dy32\.com|55dy75\.com|55dy1\.top)$/i;
+  // 播放页「分享好友观看」指向的微信推广短链域名。
+  const SHARE_HOST_RE = /(?:^|\.)clb\.kr-tencentclb\.net$/i;
   // 统计与埋点：Google tag 与站点自建 DF Analytics。
   const TRACK_HOST_RE = /(?:^|\.)(?:googletagmanager\.com|google-analytics\.com|ddjzis\.cn)$/i;
   // 纯广告素材 CDN（该域只承载广告图标）。
@@ -52,7 +54,7 @@
     if (!url) return false;
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
     const host = url.hostname;
-    if (AD_HOST_RE.test(host) || TRACK_HOST_RE.test(host) || AD_IMAGE_HOST_RE.test(host)) return true;
+    if (AD_HOST_RE.test(host) || TRACK_HOST_RE.test(host) || AD_IMAGE_HOST_RE.test(host) || SHARE_HOST_RE.test(host)) return true;
     if (host === CDN_HOST && CDN_AD_IMAGE_RE.test(url.pathname)) return true;
     return false;
   }
@@ -231,6 +233,7 @@
     '.small-icon-container',              // 博彩图标墙（首页 / 播放页 / 侧栏）
     'a.fixedGroup-item[href*="55kp2.com"]',   // 右下角悬浮下载按钮
     'a.fixedGroup-item[href*="55dy23.com"]',
+    'a.share-btn',                        // 播放页「分享好友观看」按钮本体
   ];
 
   // 站点内联脚本会按 id 回写这两个横幅容器（2s 后再次 innerHTML），
@@ -343,6 +346,11 @@
     // 悬浮组：广告按钮移除后若已无内容，整组一起移除。
     for (const group of document.querySelectorAll('.fixedGroup')) {
       if (!group.querySelector('.fixedGroup-item') && !group.querySelector('a, div')) removeElement(group);
+    }
+
+    // 分享按钮被移除后，清掉留白的空容器。
+    for (const bar of document.querySelectorAll('.module-player-handle-items')) {
+      if (!bar.textContent.trim() && !bar.querySelector('a, button, div')) removeElement(bar);
     }
   }
 
