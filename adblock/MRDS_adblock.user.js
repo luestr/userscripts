@@ -3,7 +3,7 @@
 // @name:zh-CN   每日大赛网广告过滤
 // @name:en      MRDS Ad Block
 // @namespace    https://github.com/luestr/userscripts
-// @version      1.1.0
+// @version      1.3.0
 // @description  过滤 mrds66.com 的横幅、弹窗、播放器与列表广告，仅适配 WebKit 引擎环境。
 // @description:en Block banner, popup, player and list ads on mrds66.com. WebKit only.
 // @author       可莉
@@ -14,7 +14,7 @@
 // @match        https://www.mrds66.com/*
 // @run-at       document-start
 // @grant        none
-// @webRequest   [{"selector":"*://pic.jtzatly.cn/hc237/uploads/default/other/*","action":"cancel"},{"selector":"*://*/api/eventTracking/batchReport.json*","action":"cancel"}]
+// @webRequest   [{"selector":"*://*/hc237/uploads/default/other/*","action":"cancel"},{"selector":"*://*/api/eventTracking/batchReport.json*","action":"cancel"}]
 // ==/UserScript==
 
 (() => {
@@ -32,8 +32,9 @@
 
   // 广告素材目录经核对只存放广告创意：列表广告、横幅、弹窗、播放器贴片均取自此处，
   // 而正文图片走 /upload_01/ 与 /uploads/，因此按该目录拦截不会误伤正文。
+  // 素材域名会轮换（已见 pic.jtzatly.cn、pic.sugfew.cn），故只按路径匹配，不锁定主机。
   const AD_PATTERNS = [
-    /^https?:\/\/pic\.jtzatly\.cn\/hc237\/uploads\/default\/other\//i,
+    /^https?:\/\/[^/]+\/hc237\/uploads\/default\/other\//i,
     /\/api\/eventTracking\/batchReport\.json(?:[?#]|$)/i,
   ];
 
@@ -237,6 +238,14 @@
     '.dplayer-pre-img',           // 播放器贴片广告图
     '.dplayer-pre-bg',            // 播放器贴片遮罩
     '.dplayer-pre-countdown',     // 播放器贴片倒计时
+    '#foot-menu',                 // 页脚：底部导航 + 站点简介 + 永久地址 + 推广链接 + 社交图标
+    // —— 详情页推广区（截图确认全部移除）——
+    '.post-content .tags',        // 正文标签胶囊 + “最后编辑于”
+    '.article-download',          // “下载每日大赛 APP”按钮
+    '.content-tabs',              // “官方公告 / 重磅热瓜”地址与分享栏
+    '#button5',                   // “点击复制文章链接，分享给色友”
+    '.bling',                     // 复制成功提示
+    '.post-near',                 // 上一篇 / 下一篇
   ];
 
   const HIDE_CSS = `
@@ -250,6 +259,13 @@
     .horizontal-banner,
     .article-ads-btn,
     a[data-event="ad_click"],
+    #foot-menu,
+    .post-content .tags,
+    .article-download,
+    .content-tabs,
+    #button5,
+    .bling,
+    .post-near,
     .dplayer .dplayer-pre-img,
     .dplayer .dplayer-pre-bg,
     .dplayer .dplayer-pre-countdown { display: none !important; }
@@ -302,6 +318,45 @@
     if (/margin/i.test(parent.getAttribute('style') || '')) parent.remove();
   }
 
+  /**
+   * 详情页正文里的引流块没有稳定类名，按文案与结构定位：
+   * 1) “每日大赛最新地址……”引流信息框（blockquote）；
+   * 2) “关键词：#……”段落；
+   * 3) “热门大赛”标题及其后的分类导航表。
+   * 只处理 .post-content 直接子节点，避免影响正文段落与图片。
+   */
+  function removeArticlePromo(scope) {
+    const post = scope.querySelector('.post-content');
+    if (!post) return;
+    const children = [...post.children];
+
+    for (const el of children) {
+      if (!el.isConnected) continue;
+      const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+
+      if (el.tagName === 'BLOCKQUOTE' && /最新地址|永久地址|获取最新地址/.test(text)) {
+        log('remove address blockquote');
+        el.remove();
+        continue;
+      }
+
+      if (el.tagName === 'P' && /^(?:关键[词字]|關鍵詞)[：:]/.test(text)) {
+        log('remove keyword paragraph');
+        el.remove();
+        continue;
+      }
+
+      if (el.tagName === 'P' && text === '热门大赛') {
+        log('remove hot-category table');
+        let next = el.nextElementSibling;
+        if (next && (next.tagName === 'TABLE' || next.querySelector?.('table'))) {
+          next.remove();
+        }
+        el.remove();
+      }
+    }
+  }
+
   function removeAdNodes(root) {
     const scope = (root && typeof root.querySelectorAll === 'function') ? root : document;
 
@@ -319,6 +374,7 @@
       });
     }
 
+    removeArticlePromo(scope);
     removeTitlelessCards(scope);
   }
 
