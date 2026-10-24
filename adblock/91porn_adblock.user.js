@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         91porn 广告过滤
-// @name:zh-CN   91porn 广告过滤
+// @name         91Porn网广告过滤
+// @name:zh-CN   91Porn网广告过滤
 // @name:en      91Porn Ad Block
 // @namespace    https://github.com/luestr/userscripts
 // @version      1.0.0
@@ -10,10 +10,8 @@
 // @homepageURL  https://t.me/ibilibili
 // @updateURL    https://raw.githubusercontent.com/luestr/userscripts/main/adblock/91porn_adblock.user.js
 // @downloadURL  https://raw.githubusercontent.com/luestr/userscripts/main/adblock/91porn_adblock.user.js
-// @match        https://91porn.com/v.php*
-// @match        https://91porn.com/view_video.php*
-// @match        https://www.91porn.com/v.php*
-// @match        https://www.91porn.com/view_video.php*
+// @match        https://91porn.com/*
+// @match        https://www.91porn.com/*
 // @run-at       document-start
 // @grant        none
 // @webRequest   [{"selector":"*://*.jads.co/*","action":"cancel"},{"selector":"*://*.juicyads.com/*","action":"cancel"},{"selector":"*://*.rmhfrtnd.com/*","action":"cancel"},{"selector":"*://*.exoclick.com/*","action":"cancel"},{"selector":"*://*.exosrv.com/*","action":"cancel"},{"selector":"*://*.exdynsrv.com/*","action":"cancel"},{"selector":"*://*.realsrv.com/*","action":"cancel"},{"selector":"*://*.popads.net/*","action":"cancel"},{"selector":"*://*.popcash.net/*","action":"cancel"},{"selector":"*://*.propellerads.com/*","action":"cancel"},{"selector":"*://*.propellerpops.com/*","action":"cancel"},{"selector":"*://*.onclickads.net/*","action":"cancel"},{"selector":"*://*.clickadu.com/*","action":"cancel"},{"selector":"*://*.adsterra.com/*","action":"cancel"},{"selector":"*://*.hilltopads.net/*","action":"cancel"},{"selector":"*://*.trafficjunky.net/*","action":"cancel"},{"selector":"*://*.trafficjunky.com/*","action":"cancel"},{"selector":"*://*.adspyglass.com/*","action":"cancel"},{"selector":"*://*.adnium.com/*","action":"cancel"},{"selector":"*://*.tsyndicate.com/*","action":"cancel"},{"selector":"*://g-br-cdn.kwai.net/*","action":"cancel"},{"selector":"*://fans.91selfie.com/*","action":"cancel"},{"selector":"*://*.cryptosign.academy/*","action":"cancel"},{"selector":"*://*.jhgfdsaqpwoeiru.cc/*","action":"cancel"}]
