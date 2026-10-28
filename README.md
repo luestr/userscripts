@@ -11,3 +11,4 @@
 | 5  | [每日大赛网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/MRDS_adblock.user.js)             | [https://mrds66.com](https://mrds66.com)               |
 | 6  | [91Porn网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/91porn_adblock.user.js)             | [https://91porn.com](https://91porn.com)               |
 | 7  | [磁力狗广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/clg_adblock.user.js)             | [https://clg63.top](https://clg63.top)               |
+| 8  | [月色视频网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/yuese_adblock.user.js)             | [https://yuese01.cc](yuese01.cc)               |
