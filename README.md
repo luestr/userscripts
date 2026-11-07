@@ -12,3 +12,4 @@
 | 6  | [91Porn网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/91porn_adblock.user.js)             | [https://91porn.com](https://91porn.com)               |
 | 7  | [磁力狗广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/clg_adblock.user.js)             | [https://clg63.top](https://clg63.top)               |
 | 8  | [月色视频网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/yuese_adblock.user.js)             | [https://yuese01.cc](https://yuese01.cc)               |
+| 9  | [肉视频网广告过滤](https://raw.githubusercontent.com/luestr/userscripts/main/adblock/rou_video_adblock.user.js)             | [https://rou.video](https://rou.video)               |
